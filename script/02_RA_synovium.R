@@ -23,7 +23,7 @@ ElbowPlot(pbmc)
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
 ## Computing nearest neighbor graph
 ## Computing SNN
-pbmc <- FindClusters(pbmc, resolution = 0.5)
+pbmc <- FindClusters(pbmc, resolution = 2)
 
 #UMAP
 pbmc <- RunUMAP(pbmc, dims = 1:10)
@@ -31,55 +31,58 @@ DimPlot(pbmc, reduction = "umap",label=TRUE)
 
 #T
 FeaturePlot(pbmc, features = c("CD3D"),label=TRUE)
-#0,4,8:T細胞
+#0,1,7,15,18,19,20:T/NK
 #CD8+
 FeaturePlot(pbmc, features = c("CD8A"),label=TRUE)
-#4:CD8
+#1:CD8
+#NK
+FeaturePlot(pbmc, features = c("GNLY"),label=TRUE)
+VlnPlot(pbmc, features = c("GNLY"))
+FeaturePlot(pbmc, features = c("NKG7"),label=TRUE)
+VlnPlot(pbmc, features = c("NKG7"))
+#18,19,20:NK
 #Naive C4+T
 FeaturePlot(pbmc, features = c("IL7R"),label=TRUE)
 FeaturePlot(pbmc, features = c("CCR7"),label=TRUE)
-#8:Naive CD4+
+#0,15:Naive CD4+
 #Memory CD4+
 FeaturePlot(pbmc, features = c("IL7R"),label=TRUE)
 FeaturePlot(pbmc, features = c("S100A4"),label=TRUE)
-#0:Memory CD4+
-#NK
-FeaturePlot(pbmc, features = c("GNLY"),label=TRUE)
-FeaturePlot(pbmc, features = c("NKG7"),label=TRUE)
-#NK cell is inculded in cluster 4
+FeaturePlot(pbmc, features = c("GZMK"),label=TRUE)
+#7:Memory CD4+
 
 #CD14+Mono/Macrophage, 
 FeaturePlot(pbmc, features = c("CD14"),label=TRUE)
 FeaturePlot(pbmc, features = c("LYZ"),label=TRUE)
-#3:Classical monocyte 
+#8,14,16:Classical 
 #FCGR3A+Mono
 FeaturePlot(pbmc, features = c("FCGR3A"),label=TRUE)
 FeaturePlot(pbmc, features = c("MS4A7"),label=TRUE)
-#9:Non classical monocte
+#21:Non classical
 
 #B
 FeaturePlot(pbmc,features=c("MS4A1"),label=TRUE)
-#2,10:B細胞
+#5,6,17,22:B
 
 #DC
 FeaturePlot(pbmc, features = c("FCER1A"),label=TRUE)
 FeaturePlot(pbmc, features = c("CST3"),label=TRUE)
-
 #Plasmablast marker (Nature Medicine 26,1070-1076 (2020))
 FeaturePlot(pbmc,features=c("CD27"),label=TRUE)
 FeaturePlot(pbmc,features=c("CD38"),label=TRUE)
 FeaturePlot(pbmc,features=c("TNFRSF17"),label=TRUE)
-#7:Plasmablast
+#4:Plasmablast
 
 #Fibroblast
 FeaturePlot(pbmc,features=c("COL1A1"),label=TRUE)
 FeaturePlot(pbmc,features=c("COL1A2"),label=TRUE)
 FeaturePlot(pbmc,features=c("DCN"),label=TRUE)
-#1,5,6:Fibroblast
+#2,3,9,10,11,12,13:Fibroblast
 
 #Platelet
 #VlnPlot(pbmc, features = c("PPBP"))
 #PPBP was not quantified in this dataset.
 
 saveRDS(pbmc, file = "~/AMP/RA/result.rds")
-pbmc <- RenameIdents(pbmc, `0` = "Mem CD4 T", `1` = "Fibroblast", `2` = "B",`3` = "CL Mono", `4` = "CD8 T", `5` = "Fibroblast", `6` = "Fibroblast",`7`="Plasmablast",`8`="Naive CD4 T",`9`="NC Mono",`10`="B")
+pbmc <- RenameIdents(pbmc, `0` = "Naive CD4 T", `1` = "CD8 T", `2` = "Fibroblast",`3` = "Fibroblast", `4` = "Plasmablast", `5` = "B", `6` = "B",`7`="Memory CD4 T",`8`="CL Mono",`9`="Fibroblast",`10`="Fibroblast",`11`="Fibroblast",`12`="Fibroblast",`13`="Fibroblast",`14`="CL Mono",`15`="Naive CD4 T",`16`="CL Mono",`17`="B",`18`="NK",`19`="NK",`20`="NK",`21`="NC Mono",`22`="B")
+
