@@ -83,6 +83,8 @@ FeaturePlot(pbmc,features=c("DCN"),label=TRUE)
 #VlnPlot(pbmc, features = c("PPBP"))
 #PPBP was not quantified in this dataset.
 
-saveRDS(pbmc, file = "~/AMP/RA/result.rds")
 pbmc <- RenameIdents(pbmc, `0` = "Naive CD4 T", `1` = "CD8 T", `2` = "Fibroblast",`3` = "Fibroblast", `4` = "Plasmablast", `5` = "B", `6` = "B",`7`="Memory CD4 T",`8`="CL Mono",`9`="Fibroblast",`10`="Fibroblast",`11`="Fibroblast",`12`="Fibroblast",`13`="Fibroblast",`14`="CL Mono",`15`="Naive CD4 T",`16`="CL Mono",`17`="B",`18`="NK",`19`="NK",`20`="NK",`21`="NC Mono",`22`="B")
+metadata<-read.table(file="~/AMP/celseq_meta.tsv.725591",sep="\t",header=1,row=1)
+pbmc<-AddMetaData(pbmc,metadata)
+pbmc_RA=subset(pbmc, subset = disease != "OA")
 
